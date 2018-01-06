@@ -6,24 +6,35 @@ import (
 
 func main() {
 
+	fmt.Println("---------- Linked List ----------")
 	// Create a new list and put some numbers in it.
 	l := New()
-	n0 := l.PushFront(0)
-	fmt.Print(n0)
-	// n1 := l.insert(&Node{Value: 1}, n0)
-	// n2 := l.insert(&Node{Value: 2}, n1)
-	// l.InsertValue(33, n2)
+	n0 := l.PushFront(1)
+	n2 := l.InsertValue(2, n0)
+	l.InsertValue(3, n2)
+	l.PushFront(0)
 
 	// Iterate through list and print its contents.
 	for n := l.Front(); n != nil; n = n.Next() {
 		fmt.Println(n.Value)
 	}
 
-	//l.remove(n3)
+	fmt.Println("----------")
+	l.remove(n2)
 
-	// // Iterate through list and print its contents.
-	// for n := l.Front(); n != nil; n = n.Next() {
-	// 	fmt.Println(n.Value)
-	// }
+	for n := l.Front(); n != nil; n = n.Next() {
+		fmt.Println(n.Value)
+	}
+
+	fmt.Println("---------- Stack ----------")
+
+	stk := NewStack()
+	stk.Push(0)
+	stk.Push(1)
+	stk.Push(2)
+
+	fmt.Printf("POP 1 = %v\n", stk.Pop())
+	fmt.Printf("POP 2 = %v\n", stk.Pop())
+	fmt.Printf("POP 3 = %v\n", stk.Pop())
 
 }

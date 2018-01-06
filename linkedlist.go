@@ -1,10 +1,22 @@
 package main
 
+// Doubly linked list
+// Similar to singly linked list but each node point to Previous node in addition to next node
+
+// Values stored in non-contiguous memory - can grow and shrink as needed
+
+// Downsides:
+
+// traverse list to get to data
+// Retrieval is always O(n)
+
+// List is a doubly linked list
 type List struct {
 	root Node
 	len  int
 }
 
+// Node is a single piece of data in a List
 type Node struct {
 	Value      interface{}
 	next, prev *Node
