@@ -77,7 +77,10 @@ func main() {
 
 	fmt.Printf("\n\n---------- Fibonacci ----------\n")
 
-	fmt.Printf("Sequence: %v\n", fibonacci.Fibs(20))
-	fmt.Printf("Nth Fib: %v\n", fibonacci.Fib(20))
+	fmt.Printf("Sequence: %v\n", fibonacci.Fibs(10))
+	fmt.Printf("Nth Fib: %v\n", fibonacci.Fib(10))
+	fmt.Printf("Nth Fib: %v\n", fibonacci.FibSmaller(10))
+	fmt.Printf("Nth Fib: %v\n", fibonacci.FibRecurse(10))
+	fmt.Printf("Nth Fib: %v\n", fibonacci.FibTail(10))
 
 }
