@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	"github.com/stevebargelt/missionInterview/apple"
 	"github.com/stevebargelt/missionInterview/binarytree"
 	"github.com/stevebargelt/missionInterview/fibonacci"
 	"github.com/stevebargelt/missionInterview/linkedlist"
@@ -83,4 +84,10 @@ func main() {
 	fmt.Printf("Nth Fib: %v\n", fibonacci.FibRecurse(10))
 	fmt.Printf("Nth Fib: %v\n", fibonacci.FibTail(10))
 
+	prices := []int{10, 7, 5, 8, 11, 4, 9}
+	maxProfit, err := apple.GetMaxProfit(prices)
+	if err != nil {
+		fmt.Printf("Error: %v", err)
+	}
+	fmt.Printf("GetMaxProfit: %v\n", maxProfit)
 }
