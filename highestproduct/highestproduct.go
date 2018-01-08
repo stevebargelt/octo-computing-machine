@@ -19,7 +19,9 @@ func max(x, y int) int {
 }
 
 // GetHighestProduct
-// O(n) time and O(1)O(1) additional space.
+// O(n) time and O(1) additional space.
+// Be Greedy... even as comvuluted as this looks the complexity and
+//	space are much better than looping inside loops
 func GetHighestProduct(arry []int) (int, error) {
 
 	if arry == nil {
