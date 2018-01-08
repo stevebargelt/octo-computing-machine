@@ -4,7 +4,6 @@ vendor
 buildwatcher.db
 *.deb
 dist
-linkedlist
 .vscode
 debug
 missionInterview
