@@ -6,6 +6,7 @@ import (
 	"github.com/stevebargelt/missionInterview/apple"
 	"github.com/stevebargelt/missionInterview/binarytree"
 	"github.com/stevebargelt/missionInterview/fibonacci"
+	"github.com/stevebargelt/missionInterview/highestproduct"
 	"github.com/stevebargelt/missionInterview/linkedlist"
 	"github.com/stevebargelt/missionInterview/productbutthis"
 	"github.com/stevebargelt/missionInterview/queue"
@@ -85,6 +86,7 @@ func main() {
 	fmt.Printf("Nth Fib: %v\n", fibonacci.FibRecurse(10))
 	fmt.Printf("Nth Fib: %v\n", fibonacci.FibTail(10))
 
+	fmt.Printf("\n\n---------- Get Max Profit ----------\n")
 	prices := []int{10, 7, 5, 8, 11, 4, 9}
 	maxProfit, err := apple.GetMaxProfit(prices)
 	if err != nil {
@@ -92,6 +94,7 @@ func main() {
 	}
 	fmt.Printf("GetMaxProfit: %v\n", maxProfit)
 
+	fmt.Printf("\n\n---------- Product Except This ----------\n")
 	nums := []int{1, 7, 3, 4}
 	result, err := productbutthis.GetProductsOfAllIntsExceptAtIndex(nums)
 	if err != nil {
@@ -106,4 +109,25 @@ func main() {
 	}
 	fmt.Printf("Zeros Product but this %v\n", result)
 
+	fmt.Printf("\n\n---------- Highest Product 3 of Array ----------\n")
+	nums = []int{0, 9, 2, 3, 0, 1, 4}
+	resultInt, err := highestproduct.GetHighestProduct(nums)
+	if err != nil {
+		fmt.Printf("Error: %v", err)
+	}
+	fmt.Printf("Highest of [0,9,2,3,0,1,4]=%v\n", resultInt)
+
+	nums = []int{-10, 9, 2, 3, 0, 1, 4}
+	resultInt, err = highestproduct.GetHighestProduct(nums)
+	if err != nil {
+		fmt.Printf("Error: %v", err)
+	}
+	fmt.Printf("Highest of [-10,9,2,3,0,1,4]=%v\n", resultInt)
+
+	nums = []int{-10, 9, 2, 3, -10, 1, 4}
+	resultInt, err = highestproduct.GetHighestProduct(nums)
+	if err != nil {
+		fmt.Printf("Error: %v", err)
+	}
+	fmt.Printf("Highest of [-10,9,2,3,-10,1,4]=%v\n", resultInt)
 }
