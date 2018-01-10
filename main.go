@@ -10,6 +10,7 @@ import (
 	"github.com/stevebargelt/missionInterview/linkedlist"
 	"github.com/stevebargelt/missionInterview/productbutthis"
 	"github.com/stevebargelt/missionInterview/queue"
+	"github.com/stevebargelt/missionInterview/smallestrangeoflists"
 	"github.com/stevebargelt/missionInterview/stack"
 )
 
@@ -130,4 +131,20 @@ func main() {
 		fmt.Printf("Error: %v", err)
 	}
 	fmt.Printf("Highest of [-10,9,2,3,-10,1,4]=%v\n", resultInt)
+
+	fmt.Printf("\n\n---------- Smallest Range ----------\n")
+	list1 := []int{4, 10, 15, 24, 26}
+	list2 := []int{0, 9, 12, 20}
+	list3 := []int{5, 18, 22, 30}
+	lists := [][]int{list1, list2, list3}
+	// /correctResult := []int{20, 22, 24}
+
+	result, resultInt, err = smallestrangeoflists.GetSmallestRange(lists)
+	if err != nil {
+		fmt.Printf("received error %v", err.Error())
+	}
+
+	fmt.Printf("Smallest Range = %v\n", result)
+	fmt.Printf("Range = %v\n", resultInt)
+
 }
