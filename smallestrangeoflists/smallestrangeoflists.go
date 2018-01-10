@@ -7,14 +7,14 @@ import (
 
 // You have K lists of sorted integers.
 // Find the smalest range that includes at least one number from each of the k lists
+// https://www.careercup.com/question?id=16759664
 //
-//
+// Given:
 // List 1: [4,10,15,24,26]
 // List 2: [0,9,12,20]
 // List 3: [5,18,22,30]
 //
 // Smallest Range is: [20,,24] Range of 5 (Last - First +1)
-//
 
 type RangeList struct {
 	list         []int
@@ -43,11 +43,9 @@ type workinglist struct {
 func GetSmallestRange(lists [][]int) ([]int, int, error) {
 
 	// NOTE : The len and cap functions will both return 0 for a nil slice.
-	if lists == nil {
-		return nil, 0, errors.New("list cannot be nil")
-	}
+
 	if len(lists) < 3 {
-		return nil, 0, errors.New("Need at least three lists to do this thing")
+		return nil, 0, errors.New("need at least three lists to do this thing")
 	}
 
 	const MaxUint = ^uint(0)
