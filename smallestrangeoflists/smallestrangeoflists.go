@@ -2,7 +2,6 @@ package smallestrangeoflists
 
 import (
 	"errors"
-	"fmt"
 	"sort"
 )
 
@@ -14,7 +13,7 @@ import (
 // List 2: [0,9,12,20]
 // List 3: [5,18,22,30]
 //
-// Smallest Range is: [20,22,24] Range of 5 (Last - First +1)
+// Smallest Range is: [20,,24] Range of 5 (Last - First +1)
 //
 
 type RangeList struct {
@@ -43,20 +42,19 @@ type workinglist struct {
 // GetSmallestRange returns the smallest range possible from three or more lists
 func GetSmallestRange(lists [][]int) ([]int, int, error) {
 
+	// NOTE : The len and cap functions will both return 0 for a nil slice.
 	if lists == nil {
-		return nil, 0, errors.New("list cannot be nil.")
+		return nil, 0, errors.New("list cannot be nil")
 	}
 	if len(lists) < 3 {
 		return nil, 0, errors.New("Need at least three lists to do this thing")
 	}
 
 	const MaxUint = ^uint(0)
-	const MinUint = 0
 	const MaxInt = int(MaxUint >> 1)
-	const MinInt = -MaxInt - 1
 
 	var rangeLists []*RangeList
-	var minRange []int
+	var minRange [2]int
 	minRangeDiff := MaxInt
 
 	for _, l := range lists {
@@ -66,37 +64,20 @@ func GetSmallestRange(lists [][]int) ([]int, int, error) {
 	possibleNext := true
 
 	for possibleNext {
-		var workingLists []workinglist
-		for i := range rangeLists {
-			var wl workinglist
-			wl.val = rangeLists[i].Value()
-			wl.list = rangeLists[i]
-			workingLists = append(workingLists, wl)
+		var workingLists []workinglist // yes clear out every time... refilled with the rangeLists
+		for i := range rangeLists {    // can't use i, r := range rangeLists since range always copies the object
+			workingLists = append(workingLists, workinglist{rangeLists[i].Value(), rangeLists[i]})
 		}
-		// workingLists[0].list.MoveNext()
-		// workingLists[0].list.MoveNext()
-		// workingLists[0].list.MoveNext()
 		sort.Slice(workingLists, func(i, j int) bool { return workingLists[i].val < workingLists[j].val })
-		//workingLists = SortWorkingList(workingLists)
-		fmt.Printf("WorkingLists = %v\n", workingLists)
 		first := workingLists[0].val
 		last := workingLists[len(workingLists)-1].val
 		potentialMin := last - first + 1
 		if potentialMin < minRangeDiff {
 			minRangeDiff = potentialMin
-			for i, v := range workingLists {
-				if len(minRange) < len(lists) {
-					minRange = append(minRange, v.val)
-				} else {
-					minRange[i] = v.val
-				}
-			}
+			minRange[0] = first
+			minRange[1] = last
 		}
-		//fmt.Printf("%v", workingLists[0].val)
 		possibleNext = workingLists[0].list.MoveNext()
-		if !possibleNext {
-			fmt.Println("FALSE")
-		}
 	}
-	return minRange, minRangeDiff, nil
+	return minRange[0:], minRangeDiff, nil
 }
