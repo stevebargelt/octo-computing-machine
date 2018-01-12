@@ -41,3 +41,33 @@ func TestIslandCountQbikez(t *testing.T) {
 	}
 
 }
+
+func TestIslandCountInputTooSmall(t *testing.T) {
+
+	row1 := []byte{1, 1, 0, 0, 0}
+	grid := [][]byte{row1}
+	expectedError := "must have more than one row"
+	_, err := GetIslandCount(grid)
+
+	if expectedError != err.Error() {
+		t.Error(
+			"For", "these lists",
+			"expected", expectedError,
+			"got", err.Error(),
+		)
+	}
+}
+
+func TestIslandCountInputNil(t *testing.T) {
+
+	expectedError := "must have more than one row"
+	_, err := GetIslandCount(nil)
+
+	if expectedError != err.Error() {
+		t.Error(
+			"For", "these lists",
+			"expected", expectedError,
+			"got", err.Error(),
+		)
+	}
+}

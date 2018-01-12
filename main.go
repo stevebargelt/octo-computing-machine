@@ -7,6 +7,7 @@ import (
 	"github.com/stevebargelt/missionInterview/binarytree"
 	"github.com/stevebargelt/missionInterview/fibonacci"
 	"github.com/stevebargelt/missionInterview/highestproduct"
+	"github.com/stevebargelt/missionInterview/islandcount"
 	"github.com/stevebargelt/missionInterview/linkedlist"
 	"github.com/stevebargelt/missionInterview/productbutthis"
 	"github.com/stevebargelt/missionInterview/queue"
@@ -38,7 +39,7 @@ func main() {
 
 	fmt.Println("---------- Stack ----------")
 
-	stk := stack.NewStack()
+	stk := stack.New()
 	stk.Push(0)
 	stk.Push(1)
 	stk.Push(2)
@@ -146,5 +147,15 @@ func main() {
 
 	fmt.Printf("Smallest Range = %v\n", result)
 	fmt.Printf("Range = %v\n", resultInt)
+
+	fmt.Printf("\n\n---------- Island Count  ----------\n")
+	row1 := []byte{1, 1, 0, 0, 0}
+	row2 := []byte{1, 1, 0, 0, 0}
+	row3 := []byte{0, 0, 1, 0, 1}
+	row4 := []byte{0, 0, 1, 1, 1}
+	grid := [][]byte{row1, row2, row3, row4}
+	resultInt, _ := GetIslandCount(grid)
+
+	fmt.Printf("Island Count = %v\n", resultInt)
 
 }

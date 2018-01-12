@@ -1,35 +1,50 @@
 package stack
 
-import "github.com/stevebargelt/missionInterview/linkedlist"
-
-type Stack struct {
-	list    *linkedlist.List
-	IsEmpty bool
-}
-
-func (s *Stack) Push(v interface{}) *Stack {
-	s.list.PushFront(v)
-	s.IsEmpty = false
-	return s
-}
-
-func (s *Stack) Pop() interface{} {
-	v := s.Peek()
-	s.list.Remove(s.list.Front())
-	if s.list.Len == 0 {
-		s.IsEmpty = true
+type (
+	// Stack - implementation of a stack in Go
+	Stack struct {
+		top    *node
+		length int
 	}
-	return v
+	node struct {
+		value interface{}
+		prev  *node
+	}
+)
+
+// New - create a new stack
+func New() *Stack {
+	return &Stack{nil, 0}
 }
 
+// Len = return the number of items in the stack
+func (s *Stack) Len() int {
+	return s.length
+}
+
+// Peek - view the top item on the stack
 func (s *Stack) Peek() interface{} {
-	return s.list.Front()
+	if s.length == 0 {
+		return nil
+	}
+	return s.top.value
 }
 
-// NewStack creates and returns a stack object
-func NewStack() *Stack {
-	stk := new(Stack)
-	stk.list = linkedlist.New()
-	stk.IsEmpty = true
-	return stk
+// Pop the top item of the stack and return it
+func (s *Stack) Pop() interface{} {
+	if s.length == 0 {
+		return nil
+	}
+
+	n := s.top
+	s.top = n.prev
+	s.length--
+	return n.value
+}
+
+// Push a value onto the top of the stack
+func (s *Stack) Push(value interface{}) {
+	n := &node{value, s.top}
+	s.top = n
+	s.length++
 }

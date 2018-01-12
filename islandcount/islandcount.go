@@ -1,6 +1,10 @@
 package islandcount
 
-import "errors"
+import (
+	"errors"
+
+	"github.com/stevebargelt/missionInterview/stack"
+)
 
 // Given a 2D map of 1s (Land) and 0s (Water), count the nuber of islands.
 // An island is surrounded by water. Assume grid is surrounded by water.
@@ -18,33 +22,67 @@ import "errors"
 // JUST 1s and 0s
 //
 
-// GetIslandCount returns the number of islands in a grid
-func GetIslandCount(grid [][]byte) (int, error) {
-	if len(grid) < 2 {
-		return 0, errors.New("must have more than two rows")
-	}
-	islandCount := 0
-	var lastRow []byte
-	for _, row := range grid {
-		var lastCoord byte
-		for i, coord := range row {
-			thisIsLand := coord == 1
-			continuingIsland := false
-			if thisIsLand && lastCoord == 1 {
-				continuingIsland = true
-			}
-			if lastRow != nil && lastRow[i] == 1 {
-				continuingIsland = true
-			}
+type point struct {
+	X int
+	Y int
+}
 
-			if thisIsLand && !continuingIsland {
-				islandCount++
-			}
-			lastCoord = coord
+func mapLand(ocean [][]byte, startCoord point) {
 
+	toVisit := stack.New()
+	toVisit.Push(startCoord)
+	for toVisit.Len() > 0 {
+		cur := toVisit.Pop().(point)
+		//check all four directions
+		//left
+		if cur.X > 0 && ocean[cur.X-1][cur.Y] == 1 {
+			toVisit.Push(point{X: cur.X - 1, Y: cur.Y})
 		}
-		lastRow = row
+		//right
+		if cur.X < len(ocean)-1 && ocean[cur.X+1][cur.Y] == 1 {
+			toVisit.Push(point{X: cur.X + 1, Y: cur.Y})
+		}
+		//up
+		if cur.Y > 0 && ocean[cur.X][cur.Y-1] == 1 {
+			toVisit.Push(point{X: cur.X, Y: cur.Y - 1})
+		}
+		//down
+		if cur.Y < len(ocean[cur.X])-1 && ocean[cur.X][cur.Y+1] == 1 {
+			toVisit.Push(point{X: cur.X, Y: cur.Y + 1})
+		}
+		ocean[cur.X][cur.Y] = 2
+
 	}
 
+}
+
+func getUnvisitedLand(ocean [][]byte, lastVisited point) (point, error) {
+
+	for x := lastVisited.X; x < len(ocean); x++ {
+		for y := 0; y < len(ocean[x]); y++ {
+			if ocean[x][y] == 1 {
+				return point{X: x, Y: y}, nil
+			}
+		}
+	}
+	return point{X: 0, Y: 0}, errors.New("Visited")
+}
+
+// GetIslandCount returns the number of islands in a grid
+func GetIslandCount(ocean [][]byte) (int, error) {
+	if len(ocean) < 2 {
+		return 0, errors.New("must have more than one row")
+	}
+	start := point{X: 0, Y: 0}
+	islandCount := 0
+	for {
+		start, err := getUnvisitedLand(ocean, start)
+		if err != nil {
+			break
+		}
+		mapLand(ocean, start)
+		islandCount++
+
+	}
 	return islandCount, nil
 }

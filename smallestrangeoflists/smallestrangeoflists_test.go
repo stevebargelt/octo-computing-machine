@@ -85,13 +85,9 @@ func TestGetSmallestRangeNegative(t *testing.T) {
 
 func TestNilInput(t *testing.T) {
 
-	list1 := []int{4, 10, 15, 24, 26}
-	list2 := []int{0, 9, 12, 20}
-	lists := [][]int{list1, list2}
-
 	expectedError := "need at least three lists to do this thing"
 
-	_, _, err := GetSmallestRange(lists)
+	_, _, err := GetSmallestRange(nil)
 	if err.Error() != expectedError {
 		t.Error(
 			"For", "these lists",
