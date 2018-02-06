@@ -7,7 +7,6 @@ import (
 	"github.com/stevebargelt/missionInterview/binarytree"
 	"github.com/stevebargelt/missionInterview/fibonacci"
 	"github.com/stevebargelt/missionInterview/highestproduct"
-	"github.com/stevebargelt/missionInterview/islandcount"
 	"github.com/stevebargelt/missionInterview/linkedlist"
 	"github.com/stevebargelt/missionInterview/productbutthis"
 	"github.com/stevebargelt/missionInterview/queue"
