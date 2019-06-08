@@ -18,9 +18,9 @@ func max(x, y int) int {
 	return y
 }
 
-// GetHighestProduct
+// GetHighestProduct will return the highest product of three integers in an array
 // O(n) time and O(1) additional space.
-// Be Greedy... even as comvuluted as this looks the complexity and
+// Be Greedy... even as convoluted as this looks the complexity and
 //	space are much better than looping inside loops
 func GetHighestProduct(arry []int) (int, error) {
 
